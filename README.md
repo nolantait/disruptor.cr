@@ -52,15 +52,14 @@ Current benchmarks:
 
 ```
                             user     system      total        real
-concurrent disruptor:   0.190022   0.000633   0.190655 (  0.191373)
-     basic disruptor:   0.191568   0.000353   0.191921 (  0.192272)
-               queue:   0.033481   0.000166   0.033647 (  0.033844)
-               array:   0.039994   0.000232   0.040226 (  0.040485)
+concurrent disruptor:   1.877195   0.010555   1.887750 (  2.097337)
+     basic disruptor:   1.504052   0.007077   1.511129 (  1.520054)
+               queue:   0.574990   0.002785   0.577775 (  0.582177)
+               array:   0.607392   0.004656   0.612048 (  0.617646)
 ```
 
-I'm still learning about concurrent programming so as you can see
-its a long way off, but the framework is here if you want to use it as
-inspiration for your own.
+Obviously this is a long way off, but the framework is here if you want to 
+use it as inspiration for your own.
 
 Pull requests and discussion are encouraged.
 
