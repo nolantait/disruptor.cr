@@ -3,8 +3,8 @@ module Disruptor
 
   class BufferSizeError < Exception; end
   alias Slot = Int8 | Int16 | Int32
-  alias Sequence = Atomic(Int32)
 end
 
+require "./disruptor/sequence"
 require "./disruptor/ring"
 require "./disruptor/queue"

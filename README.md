@@ -26,12 +26,18 @@ trades using a Channel from two different streams.
 
 To start the example run `crystal examples/binance.cr`
 
+To see how the disruptor handles backpressure you can try the example
+`crystal examples/overload.cr`
+
 The disruptor pattern uses a ring buffer queue of a fixed size
 which manages taking messages from producers and passing them to consumers
 without stepping on each others toes.
 
 ```crystal
 require "disruptor"
+
+# Create a disruptor queue with a length of 1024 items.
+# This number must be a power of 2 to exploit performance
 
 disruptor = Disruptor::Queue(String).new(1024)
 

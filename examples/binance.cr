@@ -27,5 +27,6 @@ end
 
 
 while channel.receive?
-  puts disruptor.pop
+  puts disruptor.inspect
+  disruptor.pop
 end
