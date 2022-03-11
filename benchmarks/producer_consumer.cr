@@ -2,8 +2,8 @@ require "benchmark"
 
 require "../src/disruptor"
 
-n = 1048576
-half = 524288
+n = 16777216
+half = 8388608
 value = "Hello"
 
 Benchmark.bm do |x|
