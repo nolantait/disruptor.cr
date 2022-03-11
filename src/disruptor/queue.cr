@@ -18,6 +18,10 @@ module Disruptor
       @buffer.get(next_sequence)
     end
 
+    def inspect
+      "<Disruptor::Queue length: #{length}>"
+    end
+
     def length
       @committed_count - @sequence.get
     end

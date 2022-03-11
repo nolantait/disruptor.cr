@@ -17,7 +17,7 @@ module Disruptor
     end
 
     def commit(slot : Slot)
-      @cursor.set(slot)
+      @cursor.compare_and_set(slot - 1, slot)
     end
 
     def set(slot : Slot, value : T)

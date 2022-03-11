@@ -26,6 +26,6 @@ spawn do
 end
 
 
-while channel.receive
+while channel.receive?
   puts disruptor.pop
 end
