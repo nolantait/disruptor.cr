@@ -1,6 +1,8 @@
-# TODO: Write documentation for `Disruptor`
+require "./disruptor/ring"
+
 module Disruptor
   VERSION = "0.1.0"
 
-  # TODO: Put your code here
+  class BufferSizeError < Exception; end
+  alias Slot = Int64 | Int32 | Int16 | Int8
 end
