@@ -20,4 +20,13 @@ describe Disruptor::Ring do
       ring.get(16).should eq "Hello"
     end
   end
+
+  describe "#claim" do
+    it "increments the cursor" do
+      ring = Disruptor::Ring(String).new(32)
+      ring.next_cursor.get.should eq 1
+      ring.claim
+      ring.next_cursor.get.should eq 2
+    end
+  end
 end
