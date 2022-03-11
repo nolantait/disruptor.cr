@@ -21,6 +21,15 @@ Suggestions for improvements are welcome as an issue.
 
 ## Usage
 
+You can run a live example using Binance websocket to stream
+trades using a Channel from two different streams.
+
+To start the example run `crystal examples/binance.cr`
+
+The disruptor pattern uses a ring buffer queue of a fixed size
+which manages taking messages from producers and passing them to consumers
+without stepping on each others toes.
+
 ```crystal
 require "disruptor"
 
@@ -29,6 +38,9 @@ disruptor = Disruptor::Queue(String).new(1024)
 disruptor.push "Hello"
 puts disruptor.pop #=> "Hello"
 ```
+
+Normally there is a business logic framework wrapped around these queues
+which lets you process everything in memory. More to be implemented soon.
 
 ## Development
 
