@@ -3,8 +3,8 @@ module Disruptor
 
   class BufferSizeError < Exception; end
   alias Slot = Int::Signed
-  alias Sequence = Atomic(Int8)
 end
 
+require "./disruptor/sequence"
 require "./disruptor/ring"
 require "./disruptor/queue"
