@@ -4,34 +4,25 @@ require "../src/disruptor"
 
 n = 16777216
 half = 8388608
-value = "Hello"
 
 Benchmark.bm do |x|
-  disruptor = Disruptor::Queue(String).new(n)
-  queue = Deque(String).new(n)
-  array = Array(String).new(n)
+  x.report("disruptor:") do
+    disruptor = Disruptor::Queue(Int32).new(n, Disruptor::WaitWithYield.new)
 
-  x.report("concurrent disruptor:") do
     spawn do
       half.times do
-        disruptor.push(value)
+        disruptor.push rand(1..100)
       end
     end
 
     spawn do
       half.times do
-        disruptor.push(value)
+        disruptor.push rand(1..100)
       end
     end
 
     spawn do
-      half.times do
-        disruptor.pop
-      end
-    end
-
-    spawn do
-      half.times do
+      n.times do
         disruptor.pop
       end
     end
@@ -39,33 +30,21 @@ Benchmark.bm do |x|
     Fiber.yield
   end
 
-  x.report("     basic disruptor:") do
-    n.times do
-      disruptor.push(value)
+  x.report("channels:") do
+    channel = Channel(Int32).new(n)
+
+    spawn do
+      half.times do
+        channel.send rand(1..100)
+      end
     end
 
-    n.times do
-      disruptor.pop
-    end
-  end
-
-  x.report("               queue:") do
-    n.times do
-      queue.push(value)
+    spawn do
+      half.times do
+        channel.send rand(1..100)
+      end
     end
 
-    n.times do
-      queue.pop
-    end
-  end
-
-  x.report("               array:") do
-    n.times do
-      array.push(value)
-    end
-
-    n.times do
-      array.pop
-    end
+    n.times { channel.receive }
   end
 end

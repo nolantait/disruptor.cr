@@ -3,42 +3,29 @@ require "log"
 require "../src/disruptor"
 
 n = 2048
-half = 1024
-value = "Hello"
-
-disruptor = Disruptor::Queue(String).new(n, Disruptor::WaitWithYield.new)
+disruptor = Disruptor::Queue(Int32).new(n, Disruptor::WaitWithYield.new)
 
 spawn do
   loop do
-    disruptor.push(value)
-    disruptor.push(value)
-    Fiber.yield
+    rand(1..100).times do
+      disruptor.push rand(1..100)
+    end
+
+    sleep rand(0.01..0.1)
   end
 end
 
 spawn do
   loop do
-    disruptor.push(value)
-    disruptor.push(value)
-    Fiber.yield
+    rand(1..100).times do
+      disruptor.push rand(1..100)
+    end
+
+    sleep rand(0.01..0.1)
   end
 end
 
-spawn do
-  loop do
-    disruptor.pop
-    Fiber.yield
-  end
-end
-
-spawn do
-  loop do
-    disruptor.pop
-    Fiber.yield
-  end
-end
-
-loop do
+while message = disruptor.pop
   puts disruptor.inspect
-  Fiber.yield
+  puts message
 end

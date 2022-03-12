@@ -13,7 +13,7 @@ module Disruptor
       nil
     end
 
-    def pop
+    def pop : T
       next_sequence = @sequence.increment
       @barrier.wait_for(next_sequence)
       @buffer.get(next_sequence)

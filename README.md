@@ -109,29 +109,29 @@ disruptor = Disruptor::Queue(String).new(1024, Disruptor::WaitWithReturn.new)
 
 ## Development
 
-Run benchmarks with `crystal benchmarks/producer_consumer.cr`
+Run benchmarks with `make run_benchmarks`
 
 To test run `crystal specs`
 
 ### Current benchmarks:
 
-*Producer/Consumer*
+*Producer/Consumer multithreading with 2 workers*
 ```
-                            user     system      total        real
-concurrent disruptor:   1.877195   0.010555   1.887750 (  2.097337)
-     basic disruptor:   1.504052   0.007077   1.511129 (  1.520054)
-               queue:   0.574990   0.002785   0.577775 (  0.582177)
-               array:   0.607392   0.004656   0.612048 (  0.617646)
+                 user     system      total        real
+disruptor:   0.100912   0.067791   0.168703 (  0.169126)
+channels:    2.749560   0.082247   2.831807 (  1.617937)
 ```
 
-*Throughput of simple pop/push*
+*Throughput of simple pop/push in a single thread*
 ```
- disruptor:   4.08k (245.07µs) (± 4.11%)  0.0B/op   3.74× slower
-     queue:  15.26k ( 65.53µs) (± 2.54%)  0.0B/op        fastest
-     array:  14.21k ( 70.35µs) (± 3.38%)  0.0B/op   1.07× slower
+  spin disruptor:  21.73M ( 46.02ns) (± 3.46%)  0.0B/op   2.61× slower
+ yield disruptor:  21.82M ( 45.83ns) (± 4.91%)  0.0B/op   2.60× slower
+return disruptor:  21.89M ( 45.67ns) (± 7.20%)  0.0B/op   2.59× slower
+           queue:  54.70M ( 18.28ns) (±12.40%)  0.0B/op   1.04× slower
+           array:  56.65M ( 17.65ns) (± 7.54%)  0.0B/op        fastest
 ```
 
-For comparison to the much better performance of the Java implementation see
+For comparison to the likely much better performance of the Java implementation see
 page 10 of the [Disruptor Technical Paper](https://lmax-exchange.github.io/disruptor/files/Disruptor-1.0.pdf)
 
 Pull requests and discussion are encouraged.

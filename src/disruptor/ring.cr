@@ -45,8 +45,11 @@ module Disruptor
       @buffer[slot % @size] = value
     end
 
-    def get(slot : Slot)
-      @buffer[slot % @size]
+    def get(slot : Slot) : T
+      value = @buffer[slot % @size]
+      raise Exception.new unless value
+
+      return value
     end
 
     def claimed_count
