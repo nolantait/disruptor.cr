@@ -16,8 +16,8 @@ describe Disruptor::Ring do
   describe "#set and #get" do
     it "allows setting and getting values" do
       ring = Disruptor::Ring(String).new(32)
-      ring.set(16, "Hello")
-      ring.get(16).should eq "Hello"
+      ring.set(1, "Hello")
+      ring.get(1).should eq "Hello"
     end
   end
 

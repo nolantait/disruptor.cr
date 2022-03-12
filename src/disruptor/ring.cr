@@ -4,12 +4,22 @@ module Disruptor
 
     getter buffer, cursor, next_cursor
 
-    def initialize(@size : Slot, block = ->(i : Slot) { T.new })
+    def initialize(@size : Int)
       raise BufferSizeError.new unless power_of_two?(@size)
 
-      @buffer = Array(T).new(@size, &block)
       @cursor = Sequence.new(0)
       @next_cursor = Sequence.new(1)
+      @buffer = Array(T | Nil).new(@size) do |index|
+        nil
+      end
+    end
+
+    def initialize(@size : Slot, &block)
+      raise BufferSizeError.new unless power_of_two?(@size)
+
+      @cursor = Sequence.new(0)
+      @next_cursor = Sequence.new(1)
+      @buffer = Array(T).new(@size, &block)
     end
 
     def claim

@@ -54,8 +54,9 @@ Run benchmarks with `crystal benchmarks/producer_consumer.cr`
 
 To test run `crystal specs`
 
-Current benchmarks:
+### Current benchmarks:
 
+*Producer/Consumer*
 ```
                             user     system      total        real
 concurrent disruptor:   1.877195   0.010555   1.887750 (  2.097337)
@@ -64,8 +65,15 @@ concurrent disruptor:   1.877195   0.010555   1.887750 (  2.097337)
                array:   0.607392   0.004656   0.612048 (  0.617646)
 ```
 
-Obviously this is a long way off, but the framework is here if you want to 
-use it as inspiration for your own.
+*Throughput of simple pop/push*
+```
+ disruptor:   4.08k (245.07µs) (± 4.11%)  0.0B/op   3.74× slower
+     queue:  15.26k ( 65.53µs) (± 2.54%)  0.0B/op        fastest
+     array:  14.21k ( 70.35µs) (± 3.38%)  0.0B/op   1.07× slower
+```
+
+For comparison to the much better performance of the Java implementation see
+page 10 of the [Disruptor Technical Paper](https://lmax-exchange.github.io/disruptor/files/Disruptor-1.0.pdf)
 
 Pull requests and discussion are encouraged.
 
