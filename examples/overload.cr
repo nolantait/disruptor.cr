@@ -6,7 +6,7 @@ n = 2048
 half = 1024
 value = "Hello"
 
-disruptor = Disruptor::Queue(String).new(n)
+disruptor = Disruptor::Queue(String).new(n, Disruptor::WaitWithYield.new)
 
 spawn do
   loop do

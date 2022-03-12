@@ -1,19 +1,21 @@
 module Disruptor
   class Queue(T)
-    def initialize(size : Slot)
-      @buffer = Ring(T).new(size)
+    def initialize(size : Slot, wait_strategy : WaitStrategy = WaitWithSpin.new)
+      @buffer = Ring(T).new(size, wait_strategy)
       @sequence = Sequence.new(0)
+      @barrier = ProcessorBarrier(T).new(@buffer, wait_strategy)
     end
 
     def push(value : T)
       cursor = @buffer.claim
       @buffer.set(cursor, value)
       @buffer.commit(cursor)
+      nil
     end
 
     def pop
       next_sequence = @sequence.increment
-      while @buffer.cursor.get < next_sequence; end
+      @barrier.wait_for(next_sequence)
       @buffer.get(next_sequence)
     end
 

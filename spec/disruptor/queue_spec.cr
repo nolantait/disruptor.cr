@@ -6,7 +6,7 @@ describe Disruptor::Queue do
   end
 
   it "pushes and pops a value from the queue" do
-    queue = Disruptor::Queue(String).new(1)
+    queue = Disruptor::Queue(String).new(1, Disruptor::WaitWithReturn.new)
     queue.push("Hello")
     queue.pop.should eq "Hello"
   end
