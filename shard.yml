@@ -1,5 +1,6 @@
 name: disruptor
 version: 0.1.0
+description: An implementation of the LMAX disruptor pattern in Crystal
 
 authors:
   - Nolan J Tait <nolanjtait@gmail.com>

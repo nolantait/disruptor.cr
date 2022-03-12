@@ -1,5 +1,7 @@
 # Disruptor.cr
 
+[![GitHub release](https://img.shields.io/github/release/nolantait/disruptor.cr.svg)](https://github.com/nolantait/disruptor.cr/releases)
+
 An ongoing attempt at implementing the 
 [Disruptor pattern](https://martinfowler.com/articles/lmax.html)
 for algotrading (and other things) with crystal.

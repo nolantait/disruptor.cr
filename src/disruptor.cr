@@ -10,6 +10,7 @@ module Disruptor
   VERSION = "0.1.0"
 
   class BufferSizeError < Exception; end
+
   alias Slot = Int8 | Int16 | Int32
   alias WaitStrategy = WaitWithSpin | WaitWithYield | WaitWithReturn
 end
